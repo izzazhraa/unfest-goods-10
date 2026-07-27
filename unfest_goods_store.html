@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNFEST GOODS | Official Merchandise UNFEST 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.3s ease-in-out;
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Hide sections initially */
+        #cart-sidebar, #checkout-section, #payment-modal {
+            display: none;
+        }
+
+        .active-section {
+            display: block !important;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 40;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Mobile Menu Button (Left) -->
+            <button class="md:hidden text-gray-600 hover:text-black">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+
+            <!-- Logo (Center) -->
+            <div class="flex-1 text-center md:text-left md:flex-none">
+                <a href="#" onclick="showHome()" class="inline-block">
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-widest uppercase brand-font">UNFEST GOODS.</h1>
+                    <p class="text-xs tracking-widest text-gray-500 uppercase mt-1">Official Merchandise Unfest 10</p>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation (Center-ish) -->
+            <nav class="hidden md:flex space-x-8 items-center flex-1 justify-center ml-8">
+                <a href="#" onclick="showHome()" class="text-sm font-semibold text-gray-800 hover:text-gray-500 uppercase tracking-wide border-b-2 border-black pb-1">Shop</a>
+                <a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-800 uppercase tracking-wide">Collections</a>
+                <a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-800 uppercase tracking-wide">About</a>
+            </nav>
+
+            <!-- Cart Icons (Right) -->
+            <div class="flex items-center space-x-6">
+                <a href="#" class="hidden md:block text-gray-600 hover:text-black transition">
+                    <i class="far fa-user text-lg"></i>
+                </a>
+                <a href="#" class="hidden md:block text-gray-600 hover:text-black transition">
+                    <i class="far fa-heart text-lg"></i>
+                </a>
+                <button onclick="toggleCart()" class="text-gray-600 hover:text-black relative transition">
+                    <i class="fas fa-shopping-bag text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-black text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex flex-col">
+        
+        <!-- SECTION 1: Product Listing (Home) -->
+        <section id="home-section" class="flex-grow container mx-auto px-4 py-8 active-section fade-in">
+            <!-- Hero Banner Placeholder -->
+            <div class="w-full h-64 md:h-96 bg-gray-200 mb-12 flex items-center justify-center relative overflow-hidden group rounded-sm">
+                <img src="https://placehold.co/1200x400/111111/FFFFFF?text=UNFEST+10+EXCLUSIVE+COLLECTION" alt="Banner" class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105">
+                <div class="relative z-10 text-center text-white p-6 bg-black bg-opacity-30">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4 brand-font tracking-wider shadow-sm">UNFEST 10 X GOODS</h2>
+                    <p class="text-sm md:text-base tracking-widest uppercase mb-6 shadow-sm">Discover the limited edition merchandise.</p>
+                    <button class="bg-white text-black px-8 py-3 text-sm font-semibold tracking-wider hover:bg-gray-100 transition shadow-lg">SHOP NOW</button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
+                <div class="text-sm text-gray-500">
+                    <span id="total-products-count">6</span> Items
+                </div>
+                <div class="flex space-x-4">
+                    <select class="text-sm border-none bg-transparent focus:ring-0 text-gray-700 cursor-pointer font-medium uppercase tracking-wide">
+                        <option>Sort By: Recommended</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest Arrivals</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gap-y-10">
+                <!-- Products will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 2: Checkout Form -->
+        <section id="checkout-section" class="container mx-auto px-4 py-8 max-w-4xl fade-in pb-20">
+            <button onclick="showHome()" class="text-sm text-gray-500 hover:text-black mb-6 flex items-center">
+                <i class="fas fa-chevron-left mr-2"></i> Back to Shopping
+            </button>
+            
+            <h2 class="text-2xl font-bold mb-8 brand-font uppercase tracking-wide">Checkout</h2>
+            
+            <div class="flex flex-col md:flex-row gap-10">
+                <!-- Left: Form -->
+                <div class="md:w-2/3">
+                    <div class="bg-white p-6 md:p-8 shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-semibold mb-6 uppercase tracking-wider text-sm border-b pb-4">Shipping Information</h3>
+                        
+                        <form id="checkout-form" onsubmit="processCheckout(event)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-xs text-gray-500 uppercase tracking-wide mb-2">First Name *</label>
+                                    <input type="text" required class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-500 uppercase tracking-wide mb-2">Last Name *</label>
+                                    <input type="text" required class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black transition">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-xs text-gray-500 uppercase tracking-wide mb-2">Email Address *</label>
+                                <input type="email" required class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black transition">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-xs text-gray-500 uppercase tracking-wide mb-2">Phone Number (WhatsApp) *</label>
+                                <input type="tel" required class="w-full border border-gray-300 p-3 text-sm focus:outline-none focus:border-black transition">
+                            </div>
+
+                            <div class="mb-6">
+                                <label class="block text-xs text-gray-500 uppercase tracking-wide mb-2">Delivery Method *</label>
+                                <div class="space-y-3">
+                                    <label class="flex items-center p-3 border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                        <input type="radio" name="delivery" value="pickup" checked class="form-radio h-4 w-4 text-black accent-black">
+                                        <span class="ml-3 text-sm font-medium">Pick up at Venue (UNFEST 10 - 20 Sept 2026)</span>
+                                    </label>
+                                    <label class="flex items-center p-3 border border-gray-200 cursor-pointer hover:bg-gray-50 opacity-50">
+                                        <input type="radio" name="delivery" value="shipping" disabled class="form-radio h-4 w-4 text-black accent-black">
+                                        <span class="ml-3 text-sm font-medium">Shipping (Currently Unavailable)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <h3 class="text-lg font-semibold mb-6 uppercase tracking-wider text-sm border-b pb-4 mt-8">Payment Method</h3>
+                            <div class="mb-8">
+                                <label class="flex items-center p-4 border border-black cursor-pointer bg-gray-50 relative">
+                                    <input type="radio" name="payment" value="qris" checked class="form-radio h-4 w-4 text-black accent-black">
+                                    <div class="ml-3 flex flex-col">
+                                        <span class="text-sm font-bold uppercase tracking-wide">QRIS (Gopay, OVO, Dana, M-Banking)</span>
+                                        <span class="text-xs text-gray-500 mt-1">Pay instantly using any supported QR app.</span>
+                                    </div>
+                                    <img src="https://placehold.co/60x25/000000/FFFFFF?text=QRIS" alt="QRIS" class="absolute right-4 h-6">
+                                </label>
+                            </div>
+
+                            <button type="submit" class="w-full bg-black text-white py-4 text-sm font-bold tracking-widest uppercase hover:bg-gray-800 transition">
+                                Place Order & Pay
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right: Order Summary -->
+                <div class="md:w-1/3">
+                    <div class="bg-gray-50 p-6 shadow-sm border border-gray-200 sticky top-24">
+                        <h3 class="text-lg font-semibold mb-6 uppercase tracking-wider text-sm border-b pb-4">Order Summary</h3>
+                        
+                        <div id="checkout-items" class="space-y-4 mb-6 max-h-64 overflow-y-auto pr-2">
+                            <!-- Items injected by JS -->
+                        </div>
+                        
+                        <div class="border-t pt-4 space-y-2 text-sm">
+                            <div class="flex justify-between text-gray-600">
+                                <span>Subtotal</span>
+                                <span id="checkout-subtotal">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>Platform Fee</span>
+                                <span>Rp 2.000</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>Shipping</span>
+                                <span>Free (Pickup)</span>
+                            </div>
+                            <div class="flex justify-between font-bold text-lg mt-4 pt-4 border-t border-gray-200">
+                                <span class="uppercase">Total</span>
+                                <span id="checkout-total">Rp 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- OVERLAYS & MODALS -->
+    
+    <!-- Background Overlay -->
+    <div id="overlay" class="overlay" onclick="closeModals()"></div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-2xl z-50 flex flex-col slide-in-right transform translate-x-full transition-transform duration-300">
+        <div class="p-5 border-b border-gray-200 flex justify-between items-center bg-white">
+            <h2 class="text-lg font-bold uppercase tracking-widest brand-font">Your Bag (<span id="sidebar-cart-count">0</span>)</h2>
+            <button onclick="toggleCart()" class="text-gray-500 hover:text-black">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div id="cart-items-container" class="flex-grow overflow-y-auto p-5 space-y-6">
+            <!-- Cart items will be injected here -->
+            <div id="empty-cart-msg" class="h-full flex flex-col items-center justify-center text-center text-gray-400 space-y-4">
+                <i class="fas fa-shopping-bag text-5xl mb-2 opacity-20"></i>
+                <p class="text-sm uppercase tracking-wider">Your shopping bag is empty.</p>
+                <button onclick="toggleCart()" class="text-xs uppercase border-b border-black text-black pb-1 hover:text-gray-600">Continue Shopping</button>
+            </div>
+        </div>
+        
+        <div class="p-5 border-t border-gray-200 bg-gray-50">
+            <div class="flex justify-between mb-4 text-sm font-bold">
+                <span class="uppercase tracking-wider">Subtotal</span>
+                <span id="cart-subtotal" class="text-lg">Rp 0</span>
+            </div>
+            <p class="text-xs text-gray-500 mb-4 text-center">Shipping & taxes calculated at checkout.</p>
+            <button onclick="proceedToCheckout()" class="w-full bg-black text-white py-4 text-sm font-bold tracking-widest uppercase hover:bg-gray-800 transition">
+                Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- QRIS Payment Modal -->
+    <div id="payment-modal" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-white shadow-2xl z-50 rounded-xl overflow-hidden flex-col fade-in">
+        <div class="bg-blue-900 text-white p-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="https://placehold.co/40x20/FFFFFF/000000?text=QRIS" alt="QRIS Logo" class="h-5 bg-white p-1 rounded-sm">
+                <span class="font-bold text-sm tracking-wider">PAYMENT</span>
+            </div>
+            <button onclick="closeModals()" class="text-white hover:text-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="p-6 text-center">
+            <p class="text-sm text-gray-500 mb-1 uppercase tracking-wider">Total Payment</p>
+            <h3 id="modal-total-amount" class="text-2xl font-bold mb-6 text-blue-900">Rp 0</h3>
+            
+            <div class="bg-gray-100 p-4 rounded-lg mb-6 inline-block border-2 border-dashed border-gray-300">
+                <!-- QRIS IMAGE GOES HERE -->
+                <!-- You can replace this placeholder src with your actual QRIS image URL -->
+                <img src="https://placehold.co/250x250/FFFFFF/000000?text=SCAN+QRIS\nUNFEST+GOODS" alt="Scan QRIS Unfest Goods" class="w-48 h-48 mx-auto object-contain bg-white p-2">
+            </div>
+            
+            <p class="text-xs text-gray-500 mb-4 px-4">
+                Open your GoPay, OVO, Dana, ShopeePay or Mobile Banking app and scan the QR code above to complete payment.
+            </p>
+            
+            <div class="bg-yellow-50 text-yellow-800 text-xs p-3 rounded text-left flex items-start space-x-2 mb-4">
+                <i class="fas fa-info-circle mt-0.5"></i>
+                <p>After scanning and paying, please take a screenshot of your payment receipt.</p>
+            </div>
+
+            <button onclick="confirmPayment()" class="w-full bg-blue-900 text-white py-3 rounded text-sm font-bold uppercase tracking-wider hover:bg-blue-800 transition shadow-md">
+                I Have Paid
+            </button>
+        </div>
+    </div>
+    
+    <!-- Success Message Modal -->
+    <div id="success-modal" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-sm bg-white shadow-2xl z-50 rounded-lg p-8 text-center hidden fade-in">
+        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-check text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-2 brand-font">Order Placed!</h3>
+        <p class="text-sm text-gray-600 mb-6">Thank you for your purchase. Please show your payment screenshot to the admin via WhatsApp to verify your order.</p>
+        <button onclick="finishOrder()" class="w-full bg-black text-white py-3 text-sm font-bold uppercase tracking-wider hover:bg-gray-800 transition">
+            Confirm via WhatsApp
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 pt-12 pb-8 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <h4 class="text-xl font-bold mb-4 brand-font tracking-widest uppercase">UNFEST GOODS.</h4>
+                    <p class="text-sm text-gray-500 mb-4 max-w-sm leading-relaxed">
+                        Official merchandise for Unnes Night Festival 10. Grab your limited edition items before they run out. See you at the festival!
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-black"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-black"><i class="fab fa-tiktok text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-black"><i class="fab fa-twitter text-xl"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold uppercase tracking-widest mb-4">Customer Care</h5>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-black">FAQ</a></li>
+                        <li><a href="#" class="hover:text-black">Sizing Guide</a></li>
+                        <li><a href="#" class="hover:text-black">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold uppercase tracking-widest mb-4">Contact</h5>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li>WhatsApp: +62 812-3456-7890</li>
+                        <li>Email: merch@unfest10.com</li>
+                        <li>UNNES, Semarang</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 pt-8 text-center md:flex md:justify-between items-center">
+                <p class="text-xs text-gray-400">&copy; 2026 Unfest Goods. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex justify-center space-x-2">
+                    <img src="https://placehold.co/40x25/e0e0e0/555555?text=QRIS" alt="QRIS" class="h-6">
+                    <img src="https://placehold.co/40x25/e0e0e0/555555?text=GoPay" alt="Gopay" class="h-6">
+                    <img src="https://placehold.co/40x25/e0e0e0/555555?text=OVO" alt="OVO" class="h-6">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // --- Data ---
+        const products = [
+            {
+                id: 1,
+                name: "UNFEST 10 Official T-Shirt - Black",
+                price: 125000,
+                image: "https://placehold.co/400x500/1a1a1a/ffffff?text=TSHIRT+BLACK\nUNFEST+10",
+                category: "Clothing",
+                colors: ["Black"],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            {
+                id: 2,
+                name: "UNFEST 10 Official T-Shirt - White",
+                price: 125000,
+                image: "https://placehold.co/400x500/f5f5f5/1a1a1a?text=TSHIRT+WHITE\nUNFEST+10",
+                category: "Clothing",
+                colors: ["White"],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            {
+                id: 3,
+                name: "Sparkling Art Hoodie - Navy",
+                price: 250000,
+                image: "https://placehold.co/400x500/101820/ffffff?text=HOODIE\nNAVY",
+                category: "Outerwear",
+                colors: ["Navy"],
+                sizes: ["M", "L", "XL"]
+            },
+            {
+                id: 4,
+                name: "UNFEST 10 Lanyard Exclusve",
+                price: 35000,
+                image: "https://placehold.co/400x500/eaeaea/333333?text=LANYARD",
+                category: "Accessories",
+                colors: ["Mix"],
+                sizes: ["One Size"]
+            },
+            {
+                id: 5,
+                name: "Unity in Diversity Tote Bag",
+                price: 75000,
+                image: "https://placehold.co/400x500/dddddd/333333?text=TOTEBAG",
+                category: "Accessories",
+                colors: ["Cream"],
+                sizes: ["One Size"]
+            },
+            {
+                id: 6,
+                name: "UNFEST 10 Sticker Pack",
+                price: 15000,
+                image: "https://placehold.co/400x500/ffffff/ff0000?text=STICKER+PACK",
+                category: "Accessories",
+                colors: ["Multi"],
+                sizes: ["One Size"]
+            }
+        ];
+
+        let cart = [];
+        const PLATFORM_FEE = 2000;
+
+        // --- Utility Functions ---
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(number);
+        };
+
+        const getElement = (id) => document.getElementById(id);
+
+        // --- Rendering ---
+        
+        function renderProducts() {
+            const grid = getElement('product-grid');
+            grid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productHTML = `
+                    <div class="group cursor-pointer">
+                        <div class="relative overflow-hidden bg-gray-100 mb-4 rounded-sm">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-[300px] md:h-[400px] object-cover object-center group-hover:scale-105 transition-transform duration-500">
+                            
+                            <!-- Quick Add Overlay (Desktop) -->
+                            <div class="absolute inset-x-0 bottom-0 bg-white bg-opacity-95 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 hidden md:flex flex-col justify-center items-center">
+                                <p class="text-xs font-bold uppercase tracking-widest mb-2">Quick Add</p>
+                                <div class="flex space-x-2">
+                                    ${product.sizes.map(size => 
+                                        `<button onclick="addToCart(${product.id}, '${size}')" class="border border-gray-300 hover:border-black text-xs w-8 h-8 flex items-center justify-center transition">${size}</button>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <h3 class="text-sm font-semibold text-gray-800 mb-1 hover:text-gray-500 transition line-clamp-1">${product.name}</h3>
+                            <p class="text-sm font-bold text-black">${formatRupiah(product.price)}</p>
+                        </div>
+                        
+                        <!-- Mobile Add Button -->
+                        <button onclick="addToCart(${product.id}, '${product.sizes[0]}')" class="md:hidden w-full mt-3 border border-black text-black py-2 text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white transition">
+                            Add to Bag
+                        </button>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', productHTML);
+            });
+        }
+
+        // --- STREAMING_CHUNK:Cart Management Logic... ---
+        function addToCart(productId, size) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            // Check if item already exists in cart with same size
+            const existingItem = cart.find(item => item.id === productId && item.size === size);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    size: size,
+                    quantity: 1
+                });
+            }
+
+            updateCartUI();
+            
+            // Show sidebar and overlay
+            const sidebar = getElement('cart-sidebar');
+            sidebar.style.display = 'flex';
+            // slight delay to allow display block to apply before animating transform
+            setTimeout(() => {
+                sidebar.classList.remove('translate-x-full');
+            }, 10);
+            getElement('overlay').classList.add('active');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function changeQuantity(index, change) {
+            if (cart[index].quantity + change > 0) {
+                cart[index].quantity += change;
+            } else if (cart[index].quantity + change === 0) {
+                removeFromCart(index);
+            }
+            updateCartUI();
+        }
+
+        function getCartTotal() {
+            return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            getElement('cart-count').innerText = count;
+            getElement('sidebar-cart-count').innerText = count;
+            
+            const cartContainer = getElement('cart-items-container');
+            const emptyMsg = getElement('empty-cart-msg');
+            const subtotalEl = getElement('cart-subtotal');
+            
+            if (cart.length === 0) {
+                emptyMsg.style.display = 'flex';
+                Array.from(cartContainer.children).forEach(child => {
+                    if(child.id !== 'empty-cart-msg') child.remove();
+                });
+                subtotalEl.innerText = formatRupiah(0);
+                return;
+            }
+            
+            emptyMsg.style.display = 'none';
+            // Clear current items (keep empty msg hidden)
+            cartContainer.innerHTML = '<div id="empty-cart-msg" style="display:none;"></div>';
+            
+            cart.forEach((item, index) => {
+                const itemHTML = `
+                    <div class="flex gap-4 border-b border-gray-100 pb-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-24 object-cover rounded-sm bg-gray-100">
+                        <div class="flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start">
+                                    <h4 class="text-sm font-semibold text-gray-800 line-clamp-2 pr-4">${item.name}</h4>
+                                    <button onclick="removeFromCart(${index})" class="text-gray-400 hover:text-red-500 text-xs"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Size: ${item.size}</p>
+                            </div>
+                            <div class="flex justify-between items-end mt-2">
+                                <div class="flex items-center border border-gray-200 rounded-sm">
+                                    <button onclick="changeQuantity(${index}, -1)" class="w-6 h-6 flex items-center justify-center hover:bg-gray-100 text-gray-600">-</button>
+                                    <span class="w-8 text-center text-sm font-medium">${item.quantity}</span>
+                                    <button onclick="changeQuantity(${index}, 1)" class="w-6 h-6 flex items-center justify-center hover:bg-gray-100 text-gray-600">+</button>
+                                </div>
+                                <span class="text-sm font-bold">${formatRupiah(item.price * item.quantity)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                cartContainer.insertAdjacentHTML('beforeend', itemHTML);
+            });
+            
+            subtotalEl.innerText = formatRupiah(getCartTotal());
+        }
+
+        // --- Navigation & UI Flow ---
+
+        function toggleCart() {
+            const sidebar = getElement('cart-sidebar');
+            const overlay = getElement('overlay');
+            
+            if (sidebar.classList.contains('translate-x-full')) {
+                // Open
+                sidebar.style.display = 'flex';
+                setTimeout(() => sidebar.classList.remove('translate-x-full'), 10);
+                overlay.classList.add('active');
+            } else {
+                // Close
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.remove('active');
+                setTimeout(() => sidebar.style.display = 'none', 300);
+            }
+        }
+
+        function closeModals() {
+            const sidebar = getElement('cart-sidebar');
+            sidebar.classList.add('translate-x-full');
+            
+            getElement('overlay').classList.remove('active');
+            getElement('payment-modal').style.display = 'none';
+            getElement('success-modal').style.display = 'none';
+            
+            setTimeout(() => sidebar.style.display = 'none', 300);
+        }
+
+        function showHome() {
+            getElement('home-section').classList.add('active-section');
+            getElement('checkout-section').classList.remove('active-section');
+            closeModals();
+            window.scrollTo(0, 0);
+        }
+
+        // --- STREAMING_CHUNK:Checkout & Payment Logic... ---
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert("Your bag is empty!");
+                return;
+            }
+            
+            closeModals();
+            getElement('home-section').classList.remove('active-section');
+            getElement('checkout-section').classList.add('active-section');
+            
+            renderCheckoutSummary();
+            window.scrollTo(0, 0);
+        }
+
+        function renderCheckoutSummary() {
+            const container = getElement('checkout-items');
+            container.innerHTML = '';
+            
+            cart.forEach(item => {
+                const itemHTML = `
+                    <div class="flex justify-between items-center py-2">
+                        <div class="flex items-center gap-3">
+                            <div class="relative">
+                                <img src="${item.image}" class="w-12 h-12 object-cover border border-gray-200">
+                                <span class="absolute -top-2 -right-2 bg-gray-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">${item.quantity}</span>
+                            </div>
+                            <div class="text-xs">
+                                <p class="font-semibold line-clamp-1 w-32">${item.name}</p>
+                                <p class="text-gray-500">${item.size}</p>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium">${formatRupiah(item.price * item.quantity)}</span>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', itemHTML);
+            });
+            
+            const subtotal = getCartTotal();
+            const total = subtotal + PLATFORM_FEE;
+            
+            getElement('checkout-subtotal').innerText = formatRupiah(subtotal);
+            getElement('checkout-total').innerText = formatRupiah(total);
+        }
+
+        function processCheckout(e) {
+            e.preventDefault();
+            const total = getCartTotal() + PLATFORM_FEE;
+            
+            // Set modal amount
+            getElement('modal-total-amount').innerText = formatRupiah(total);
+            
+            // Show QRIS Modal
+            getElement('overlay').classList.add('active');
+            getElement('payment-modal').style.display = 'flex';
+        }
+
+        function confirmPayment() {
+            getElement('payment-modal').style.display = 'none';
+            getElement('success-modal').style.display = 'block';
+            
+            // Clear cart behind the scenes
+            cart = [];
+            updateCartUI();
+        }
+
+        function finishOrder() {
+            closeModals();
+            showHome();
+            
+            // In a real app, this would open WhatsApp with a pre-filled message
+            const phone = "6281234567890";
+            const message = encodeURIComponent("Hello Unfest Goods Admin, I have placed an order on the website and completed the QRIS payment. Attached is my payment proof.");
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+
+    </script>
+</body>
+</html>
